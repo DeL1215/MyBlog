@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArrowIcon from '../../components/ArrowIcon.astro';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+---
+<BaseLayout title="文章｜盧鼎頤" description="盧鼎頤的文章與製作紀錄。">
+  <section class="page-masthead">
+    <div class="page-masthead__inner shell"><div><h1 class="page-title">文章</h1><p class="page-masthead__intro">整理製作過程、方法、失敗與修正。</p></div></div>
+  </section>
+  <section class="blog-index shell">
+    <div class="post-list">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}/`}>
+          <span class="sample">{post.data.sample ? '內容範例' : '文章'}</span>
+          <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+          <div><h2>{post.data.title}</h2><p>{post.data.description}</p><ul>{post.data.tags.map((tag) => <li>{tag}</li>)}</ul></div>
+          <span class="arrow" aria-hidden="true"><ArrowIcon /></span>
+        </a>
+      ))}
+      {posts.length === 0 && <p class="empty">目前尚未公開文章。</p>}
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .blog-index { padding-block: clamp(70px, 9vw, 130px); }
+  .post-list { border-top: 1px solid var(--ink); }
+  .post-list > a { display: grid; grid-template-columns: 110px 130px 1fr 30px; gap: 28px; align-items: start; color: var(--ink); border-bottom: 1px solid var(--rule); padding: 34px 16px; text-decoration: none; transition: background var(--motion); }
+  .post-list > a:hover { background: rgba(255, 255, 255, .38); }
+  .post-list > a > div { transition: transform var(--motion); }
+  .post-list > a:hover > div { transform: translateX(8px); }
+  .sample, time { color: var(--blue); font: 500 .68rem var(--font-ui); letter-spacing: .07em; }
+  time { color: var(--muted); }
+  h2 { margin: -8px 0 8px; font: 600 clamp(1.7rem, 3vw, 3rem)/1.25 var(--font-display); letter-spacing: -.02em; transition: color var(--motion); }
+  a:hover h2 { color: var(--blue); }
+  .post-list p { max-width: 670px; margin: 0; color: var(--muted); }
+  ul { display: flex; gap: 18px; list-style: none; margin: 16px 0 0; padding: 0; color: var(--muted); font: 500 .68rem var(--font-ui); }
+  .arrow { color: var(--blue); transition: transform var(--motion); }
+  a:hover .arrow { transform: translate(3px, -3px); }
+  .empty { margin: 0; padding: 32px 0; border-bottom: 1px solid var(--rule); color: var(--muted); }
+  @media (max-width: 700px) { .post-list > a { grid-template-columns: 84px 1fr 24px; gap: 14px; } time { grid-column: 2; } .post-list > a > div { grid-column: 2; } .arrow { grid-column: 3; grid-row: 1; } }
+</style>

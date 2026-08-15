@@ -1,0 +1,23 @@
+---
+interface Props {
+  size?: number;
+}
+
+const { size = 22 } = Astro.props;
+---
+
+<svg class="arrow-icon" width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+  <path d="M17 7L7 17M8 7h9v9" />
+</svg>
+
+<style>
+  .arrow-icon {
+    display: inline-block;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    flex: none;
+  }
+</style>

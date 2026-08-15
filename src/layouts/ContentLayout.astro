@@ -1,0 +1,71 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  meta: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+const { title, description, meta, image, imageAlt = '' } = Astro.props;
+---
+
+<BaseLayout title={`${title}｜盧鼎頤`} description={description} image={image}>
+  <article class="content-shell">
+    <header class="content-header">
+      <p>{meta}</p>
+      <h1>{title}</h1>
+      <div class="lead">{description}</div>
+    </header>
+    {image && <img class="content-cover" src={image} alt={imageAlt} />}
+    <div class="prose"><slot /></div>
+  </article>
+</BaseLayout>
+
+<style>
+  .content-shell {
+    padding-bottom: clamp(80px, 10vw, 140px);
+  }
+
+  .content-header { width: 100%; max-width: none; padding: clamp(70px, 9vw, 120px) max(24px, calc((100% - 1080px) / 2)); color: var(--paper); background: var(--night); }
+  .content-header p {
+    margin: 0 0 32px;
+    color: var(--flame);
+    font: 600 .75rem var(--font-ui);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 920px;
+    margin: 0;
+    font: 600 clamp(3.1rem, 7vw, 6rem)/1.08 var(--font-display);
+    letter-spacing: -.03em;
+  }
+
+  .lead {
+    max-width: 740px;
+    margin-top: 30px;
+    color: var(--paper-deep);
+    font: 400 clamp(1.05rem, 1.8vw, 1.25rem)/1.8 var(--font-body);
+  }
+
+  .content-cover {
+    width: min(calc(100% - 48px), 1080px);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin: 70px auto;
+    border-radius: 18px;
+  }
+
+  .prose { width: min(calc(100% - 48px), 760px); margin: 70px auto 0; }
+
+  @media (max-width: 700px) {
+    .content-header { padding-inline: 16px; }
+    .content-cover { margin: 44px auto; }
+    .content-cover, .prose { width: min(calc(100% - 32px), 760px); }
+    .prose { margin-top: 44px; }
+  }
+</style>

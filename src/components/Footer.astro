@@ -1,0 +1,68 @@
+<footer class="site-footer" id="contact">
+  <div class="footer-inner">
+    <a class="footer-name" href="/">盧鼎頤</a>
+    <nav aria-label="頁尾導覽">
+      <a href="/achievements/">成果</a>
+      <a href="/blog/">文章</a>
+      <a href="/about/">關於</a>
+      <a href="mailto:dennylulu1215@gmail.com">聯絡</a>
+    </nav>
+    <div class="footer-meta">
+      <span>© {new Date().getFullYear()} 盧鼎頤</span>
+      <a href="mailto:dennylulu1215@gmail.com">dennylulu1215@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    color: var(--paper);
+    background: var(--night);
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .footer-inner {
+    width: min(calc(100% - 64px), var(--page-width));
+    margin: 0 auto;
+    min-height: 180px;
+    padding: 48px 0 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+
+  .footer-name { color: var(--paper); font: 600 2rem var(--font-display); letter-spacing: .12em; text-decoration: none; }
+  nav { display: flex; gap: 34px; }
+
+  nav a {
+    color: var(--paper);
+    border-bottom: 1px solid transparent;
+    padding: 8px 0;
+    font: 500 .86rem var(--font-body);
+    text-decoration: none;
+  }
+
+  nav a:hover { color: var(--flame); border-color: currentColor; }
+
+  .footer-meta {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-self: end;
+    border-top: 1px solid var(--rule-on-dark);
+    padding-top: 16px;
+    color: color-mix(in srgb, var(--paper) 62%, transparent);
+    font: 500 .67rem var(--font-ui);
+    letter-spacing: .06em;
+  }
+
+  .footer-meta a { color: inherit; text-underline-offset: .25em; }
+  .footer-meta a:hover { color: var(--flame); }
+
+  @media (max-width: 760px) {
+    .footer-inner { width: min(calc(100% - 32px), var(--page-width)); }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    nav { justify-content: space-between; gap: 18px; }
+    .footer-meta { flex-direction: column; gap: 7px; }
+  }
+</style>

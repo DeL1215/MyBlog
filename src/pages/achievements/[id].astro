@@ -1,0 +1,15 @@
+---
+import { getCollection, render } from 'astro:content';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { achievementCategoryLabel, achievementTypeLabel } from '../../data/achievements';
+
+export async function getStaticPaths() {
+  const achievements = await getCollection('achievements', ({ data }) => !data.draft);
+  return achievements.map((achievement) => ({ params: { id: achievement.id }, props: { achievement } }));
+}
+const { achievement } = Astro.props;
+const { Content } = await render(achievement);
+---
+<ContentLayout title={achievement.data.title} description={achievement.data.description} meta={`${achievementCategoryLabel[achievement.data.category]} / ${achievementTypeLabel[achievement.data.type]} / ${achievement.data.year}`} image={achievement.data.cover} imageAlt={achievement.data.coverAlt}>
+  <Content />
+</ContentLayout>

@@ -16,6 +16,7 @@ ASSET-CREDITS.md
 # Working image sources. Only the texture below is part of production.
 src/assets/images/*
 !src/assets/images/paper-texture-v2.png
+!src/assets/images/paper-texture-v3.webp
 
 # Retired or reference-only public assets
 public/images/editorial-arches.webp

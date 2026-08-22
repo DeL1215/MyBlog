@@ -44,8 +44,8 @@
 
 * { box-sizing: border-box; }
 html { color: var(--ink); background: var(--chalk); scroll-behavior: smooth; scrollbar-color: var(--cobalt) var(--chalk-deep); text-rendering: optimizeLegibility; }
-body { margin: 0; min-width: 320px; color: var(--ink); background-color: var(--chalk); background-image: linear-gradient(rgb(255 255 255 / .78), rgb(255 255 255 / .78)), url('../assets/images/paper-texture-v2.png'); background-position: center top; background-size: auto, 720px auto; background-repeat: repeat; font-family: var(--font-body); font-size: 18px; line-height: 1.7; overflow-x: hidden; }
-main { background: radial-gradient(circle at 8% 28%, rgb(23 56 196 / .055), transparent 25%), radial-gradient(circle at 92% 68%, rgb(180 63 39 / .06), transparent 27%); }
+body { margin: 0; min-width: 320px; color: var(--ink); background-color: var(--chalk); background-image: linear-gradient(rgb(255 255 255 / .16), rgb(255 255 255 / .16)), url('../assets/images/paper-texture-v3.webp'); background-position: center top; background-size: auto, 720px auto; background-repeat: repeat; font-family: var(--font-body); font-size: 18px; line-height: 1.7; overflow-x: hidden; }
+main { background: radial-gradient(circle at 8% 28%, rgb(23 56 196 / .045), transparent 25%), radial-gradient(circle at 92% 68%, rgb(180 63 39 / .05), transparent 27%); }
 ::selection { color: var(--chalk); background: var(--rust); }
 img { display: block; max-width: 100%; }
 button, input, textarea, select { font: inherit; }

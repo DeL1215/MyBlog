@@ -48,24 +48,13 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   </nav>
 
   <section id="visual-language" class="visual-language shell" aria-labelledby="visual-title">
-    <div class="collage-field" aria-hidden="true">
-      <span class="wash wash-blue"></span><span class="wash wash-red"></span>
-      <span class="paper-cut cut-a"></span><span class="paper-cut cut-b"></span>
-      <span class="orbit-line orbit-a"></span><span class="orbit-line orbit-b"></span>
-      <span class="cross cross-a"></span><span class="cross cross-b"></span>
-      <span class="pixel-code">ART × SIGNAL</span>
-    </div>
+    <img class="visual-artwork" src={withBase('/images/editorial-botanical-collage-v1.webp')} alt="" width="1536" height="1024" loading="lazy" decoding="async" aria-hidden="true" />
     <div class="visual-copy">
       <span class="signal-mark" aria-hidden="true"></span>
       <h2 id="visual-title">在電路與構成之間</h2>
       <p>一邊是訊號、元件與可以被驗證的結構；另一邊是比例、材質與觀看時產生的感受。這個 Blog 把它們放在同一張工作桌上。</p>
       <TextLink href="/about/">認識勞什</TextLink>
     </div>
-    <ul class="visual-notes">
-      <li><strong>TECH</strong><span>訊號、程式、電子實作</span></li>
-      <li><strong>ART</strong><span>比例、媒材、視覺感受</span></li>
-      <li><strong>BLOG</strong><span>把過程留下來</span></li>
-    </ul>
   </section>
 
   <section id="achievements" class="achievements-section shell" aria-labelledby="achievements-title">
@@ -147,33 +136,12 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   .section-index a:hover { color: var(--cobalt-soft); }
   .section-index a:hover :global(svg) { transform: translate(4px, -4px); }
 
-  .visual-language { position: relative; display: grid; grid-template-columns: minmax(360px, 1.18fr) minmax(280px, .7fr); grid-template-rows: auto auto; gap: 38px clamp(48px, 8vw, 126px); align-items: center; margin-block: clamp(80px, 10vw, 150px); padding: clamp(44px, 7vw, 100px); border-block: 1px solid var(--rule); background: linear-gradient(118deg, rgb(255 255 255 / .78), rgb(248 250 255 / .58) 48%, rgb(255 245 241 / .62)); }
-  .collage-field { position: relative; grid-row: 1 / span 2; min-height: 560px; overflow: hidden; background: linear-gradient(145deg, rgb(23 56 196 / .08), transparent 44%), linear-gradient(325deg, rgb(180 63 39 / .1), transparent 50%), rgb(255 255 255 / .56); border: 1px solid rgb(23 24 29 / .16); box-shadow: 0 28px 70px rgb(23 24 29 / .1); }
-  .collage-field::before { position: absolute; inset: 8% 10%; content: ''; background: url('../assets/images/paper-texture-v2.png') center / 520px repeat; mix-blend-mode: multiply; opacity: .26; transform: rotate(-3deg); }
-  .wash { position: absolute; filter: blur(2px); opacity: .9; }
-  .wash-blue { width: 56%; aspect-ratio: 1; right: -8%; top: 4%; background: radial-gradient(circle, rgb(23 56 196 / .52), rgb(23 56 196 / 0) 68%); }
-  .wash-red { width: 48%; aspect-ratio: 1; left: -8%; bottom: -8%; background: radial-gradient(circle, rgb(180 63 39 / .44), rgb(180 63 39 / 0) 70%); }
-  .paper-cut { position: absolute; background: rgb(255 255 255 / .78); border: 1px solid rgb(23 24 29 / .16); }
-  .cut-a { width: 46%; height: 38%; left: 12%; top: 12%; transform: rotate(-8deg); }
-  .cut-b { width: 42%; height: 30%; right: 8%; bottom: 13%; transform: rotate(7deg); }
-  .orbit-line { position: absolute; width: 74%; aspect-ratio: 1.8; border: 2px solid var(--cobalt); border-radius: 50%; }
-  .orbit-a { left: 7%; top: 31%; transform: rotate(-17deg); }
-  .orbit-b { right: -2%; top: 25%; border-color: var(--rust); transform: rotate(24deg); }
-  .cross { position: absolute; width: 72px; height: 12px; background: var(--ink); }
-  .cross::after { position: absolute; left: 30px; top: -30px; width: 12px; height: 72px; content: ''; background: inherit; }
-  .cross-a { left: 18%; bottom: 19%; color: var(--ink); transform: rotate(13deg); }
-  .cross-b { right: 12%; top: 18%; width: 52px; height: 9px; color: var(--rust); background: var(--rust); transform: rotate(-9deg); }
-  .cross-b::after { left: 22px; top: -22px; width: 9px; height: 52px; }
-  .pixel-code { position: absolute; left: 24px; bottom: 20px; color: var(--ink); font: 800 .82rem/1 var(--font-ui); letter-spacing: .18em; }
-  .visual-copy { position: relative; z-index: 2; }
+  .visual-language { position: relative; isolation: isolate; min-height: 720px; display: grid; grid-template-columns: 1fr minmax(360px, .72fr); align-items: center; overflow: hidden; margin-block: clamp(80px, 10vw, 150px); border-block: 1px solid var(--rule); background: var(--chalk); }
+  .visual-artwork { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .visual-copy { position: relative; z-index: 2; grid-column: 2; margin: clamp(42px, 6vw, 90px); padding: clamp(34px, 4vw, 62px); background: rgb(252 251 248 / .9); box-shadow: 0 28px 70px rgb(23 24 29 / .16); }
   .visual-copy h2 { margin: 0; font: 700 clamp(3rem, 5vw, 6rem)/.95 var(--font-editorial); letter-spacing: -.04em; }
   .visual-copy p { margin: 28px 0 26px; line-height: 1.9; }
   .signal-mark { position: absolute; z-index: -1; right: -12%; top: -68px; width: 120px; aspect-ratio: 1; background: var(--cobalt); clip-path: polygon(50% 0, 59% 38%, 82% 8%, 70% 43%, 100% 33%, 73% 51%, 100% 69%, 65% 61%, 70% 100%, 53% 65%, 39% 100%, 40% 62%, 7% 82%, 33% 53%, 0 46%, 38% 45%); }
-  .visual-notes { align-self: end; list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-  .visual-notes li { display: grid; grid-template-columns: 84px 1fr; gap: 22px; padding: 15px 0; border-bottom: 1px solid var(--rule); }
-  .visual-notes strong { color: var(--cobalt-dark); font-size: .84rem; letter-spacing: .08em; }
-  .visual-notes li:nth-child(2) strong { color: var(--rust-dark); }
-  .visual-notes span { color: var(--muted); font-size: .92rem; }
 
   .achievements-section { position: relative; display: grid; grid-template-columns: minmax(240px, .45fr) minmax(0, 1.25fr); gap: clamp(50px, 9vw, 140px); padding-block: clamp(100px, 12vw, 170px); }
   .achievements-section header { position: sticky; top: 110px; align-self: start; }
@@ -233,8 +201,8 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   }
 
   @media (max-width: 980px) {
-    .visual-language { grid-template-columns: 1fr; }
-    .collage-field { grid-row: auto; min-height: 480px; }
+    .visual-language { grid-template-columns: 1fr; min-height: 680px; }
+    .visual-copy { grid-column: 1; width: min(52%, 520px); margin-left: auto; }
     .achievements-section, .articles-inner { grid-template-columns: 1fr; gap: 58px; }
     .achievements-section header { position: static; }
     .pixel-field { display: none; }
@@ -250,9 +218,9 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     .hero-description { max-width: 25ch; font-size: 1rem; }
     .section-index > div { grid-template-columns: 1fr; }
     .section-index a { min-height: 96px; border-right: 1px solid var(--rule-on-dark); border-bottom: 1px solid var(--rule-on-dark); }
-    .visual-language { grid-template-columns: 1fr; margin-block: 70px; padding: 34px 22px; }
-    .collage-field { min-height: 360px; }
-    .visual-copy { grid-row: 1; }
+    .visual-language { grid-template-columns: 1fr; min-height: 0; margin-block: 70px; overflow: visible; background: transparent; }
+    .visual-artwork { position: relative; z-index: 0; grid-row: 2; aspect-ratio: 1.3; height: auto; object-position: 36% center; }
+    .visual-copy { grid-column: 1; grid-row: 1; width: auto; margin: 0; padding: 42px 22px 52px; background: rgb(252 251 248 / .82); box-shadow: none; }
     .signal-mark { right: -4px; top: -82px; width: 72px; }
     .register-row { grid-template-columns: 76px 1fr 24px; gap: 14px; }
     .register-row .year { grid-column: 1; grid-row: 2; }

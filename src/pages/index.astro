@@ -3,7 +3,6 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TextLink from '../components/TextLink.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
-import Avatar from '../components/Avatar.astro';
 import { achievementCategoryLabel, achievementTypeLabel } from '../data/achievements';
 import { siteConfig } from '../config/site';
 import { withBase } from '../utils/paths';
@@ -99,22 +98,11 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     </div>
   </section>
 
-  <section id="about" class="about-section shell" aria-labelledby="about-title">
-    <div class="portrait-stage">
-      <Avatar />
-      <span class="portrait-orbit" aria-hidden="true"></span>
-    </div>
-    <div class="about-copy">
-      <h2 id="about-title">平時的我</h2>
-      <p>我是 <strong>{siteConfig.nickname}</strong>。除了學習與做作品，平時也喜歡看劇、玩遊戲，偶爾把感興趣的想法做成小作品。</p>
-      <TextLink href="/about/">詳細介紹</TextLink>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
   .hero { position: relative; isolation: isolate; min-height: calc(100dvh - 74px); overflow: hidden; background: #f3f0e8; }
-  .visual-language, .achievements-section, .articles-section, .about-section { scroll-margin-top: 96px; }
+  .visual-language, .achievements-section, .articles-section { scroll-margin-top: 96px; }
   .hero-artwork { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
   .hero-inner { min-height: calc(100dvh - 74px); display: flex; align-items: center; padding-block: 64px; }
   .hero-copy { width: min(42%, 650px); }
@@ -145,7 +133,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
 
   .achievements-section { position: relative; display: grid; grid-template-columns: minmax(240px, .45fr) minmax(0, 1.25fr); gap: clamp(50px, 9vw, 140px); padding-block: clamp(100px, 12vw, 170px); }
   .achievements-section header { position: sticky; top: 110px; align-self: start; }
-  .achievements-section h2, .articles-section h2, .about-section h2 { margin: 0; font: 700 clamp(3.5rem, 7vw, 7rem)/1 var(--font-editorial); letter-spacing: -.045em; }
+  .achievements-section h2, .articles-section h2 { margin: 0; font: 700 clamp(3.5rem, 7vw, 7rem)/1 var(--font-editorial); letter-spacing: -.045em; }
   .achievements-section header p, .articles-section header p { max-width: 27ch; margin: 24px 0 22px; color: var(--muted); }
   .register { position: relative; z-index: 2; border-top: 2px solid var(--ink); }
   .register-row { display: grid; grid-template-columns: 110px 1fr 64px 26px; gap: 24px; align-items: start; min-height: 150px; padding: 28px 10px 28px 0; color: var(--ink); border-bottom: 1px solid var(--rule); text-decoration: none; transition: background var(--motion); }
@@ -183,14 +171,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   .orbit i:nth-child(1) { left: 4%; top: 35%; }
   .orbit i:nth-child(2) { left: 28%; top: 10%; }
   .orbit i:nth-child(3) { right: 17%; top: 24%; }
-
-  .about-section { min-height: 680px; display: grid; grid-template-columns: minmax(320px, .8fr) minmax(0, 1.2fr); gap: clamp(60px, 10vw, 160px); align-items: center; overflow: hidden; padding-block: clamp(90px, 11vw, 150px); }
-  .portrait-stage { position: relative; min-height: 390px; display: grid; place-items: center; }
-  .portrait-stage::before { position: absolute; z-index: -1; width: min(92%, 390px); aspect-ratio: 1; content: ''; border: 1px solid var(--cobalt); border-radius: 50%; transform: translate(9%, -4%); }
-  .portrait-stage::after { position: absolute; z-index: -1; left: 8%; bottom: 4%; width: 170px; aspect-ratio: 1.3; content: ''; background: var(--cobalt); clip-path: polygon(0 43%, 34% 43%, 34% 0, 58% 0, 58% 35%, 100% 35%, 100% 100%, 42% 100%, 42% 72%, 0 72%); }
-  .portrait-orbit { position: absolute; width: min(120%, 480px); aspect-ratio: 1.7; border: 1px solid rgb(23 24 29 / .32); border-radius: 50%; transform: rotate(-17deg); }
-  .about-copy p { max-width: 38ch; margin: 30px 0 0; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.9; }
-  .about-copy strong { color: var(--cobalt-dark); font-weight: 800; }
 
   @media (prefers-reduced-motion: no-preference) {
     .hero-copy { animation: hero-copy-in .7s cubic-bezier(.16, 1, .3, 1) both; }
@@ -230,7 +210,5 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     .article-list time, .article-list h3, .article-list p { grid-column: 1; }
     .article-list a > span { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
     .orbit { width: 100vw; opacity: .65; }
-    .about-section { grid-template-columns: 1fr; min-height: 0; }
-    .portrait-stage { min-height: 340px; }
   }
 </style>

@@ -14,9 +14,9 @@ import { siteConfig } from '../config/site';
       </div>
     </div>
     <nav aria-label="頁尾導覽">
+      <a href={withBase('/about/')}>關於我</a>
       <a href={withBase('/achievements/')}>成果</a>
       <a href={withBase('/blog/')}>文章</a>
-      <a href={withBase('/about/')}>關於</a>
     </nav>
     <p class="footer-meta">© {new Date().getFullYear()} {siteConfig.nickname}</p>
   </div>

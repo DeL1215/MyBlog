@@ -4,9 +4,9 @@ import { siteConfig } from '../config/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
   { href: '/', label: '首頁' },
+  { href: '/about/', label: '關於我' },
   { href: '/achievements/', label: '成果' },
   { href: '/blog/', label: '文章' },
-  { href: '/about/', label: '關於' },
 ].map((link) => ({ ...link, url: withBase(link.href) }));
 ---
 

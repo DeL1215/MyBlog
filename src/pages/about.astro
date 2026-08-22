@@ -7,7 +7,7 @@ import EditorialVisual from '../components/EditorialVisual.astro';
 
 <BaseLayout title={`關於｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}（${siteConfig.legalName}），畢業於大安高工資訊科，目前就讀於台灣科技大學電子工程系。`}>
   <section class="page-masthead">
-    <div class="page-masthead__inner shell"><div><h1 class="page-title">關於</h1><p class="page-masthead__intro">身份、學習路徑，以及這個 Blog 想留下的東西。</p></div><EditorialVisual variant="about" /></div>
+    <div class="page-masthead__inner shell"><div><h1 class="page-title">關於</h1><p class="page-masthead__intro">我的學習經歷，以及對技術與藝術的興趣。</p></div><EditorialVisual variant="about" /></div>
   </section>
   <section class="about-page shell">
     <div class="intro">
@@ -19,9 +19,8 @@ import EditorialVisual from '../components/EditorialVisual.astro';
       </div>
       <div class="intro-copy">
         <h2>{siteConfig.nickname}</h2>
-        <p>我是 {siteConfig.nickname}，本名 {siteConfig.legalName}。畢業於大安高工資訊科，目前就讀於台灣科技大學電子工程系。</p>
-        <p class="purpose">這個 Blog 用來展示與記錄成果，也整理製作過程中的方法、問題和想法。</p>
-        <p class="avatar-help">更換大頭照：把照片放進網站圖片資料夾，再到 <code>src/config/site.ts</code> 設定 <code>avatar</code>，首頁與關於頁會一起更新。</p>
+        <p>我是 {siteConfig.nickname}，本名 {siteConfig.legalName}。我喜歡電子與程式，也在意作品的視覺、比例和表達方式。目前就讀於台灣科技大學電子工程系，畢業於大安高工資訊科。</p>
+        <p class="purpose">我希望自己不只把東西做出來，也能理解它如何運作、為什麼以這樣的方式呈現。這裡記錄我的作品，以及一路上的思考與修正。</p>
       </div>
     </div>
     <div class="details">
@@ -47,8 +46,6 @@ import EditorialVisual from '../components/EditorialVisual.astro';
   .intro-copy h2 { margin: 0 0 28px; color: var(--cobalt-dark); font: 700 clamp(3rem, 6vw, 6rem)/1 var(--font-editorial); letter-spacing: -.045em; }
   .intro-copy > p { max-width: 760px; margin: 0; font-size: clamp(1.12rem, 2vw, 1.45rem); line-height: 1.85; }
   .purpose { margin-top: 24px !important; color: var(--muted); }
-  .avatar-help { margin-top: 28px !important; padding-top: 22px; border-top: 1px solid var(--rule); color: var(--muted); font-size: .94rem !important; }
-  code { color: var(--cobalt-dark); font-family: ui-monospace, 'Cascadia Code', monospace; }
   .details { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(40px, 8vw, 130px); border-top: 2px solid var(--ink); padding-top: 40px; }
   .details h2 { margin: 0; color: var(--cobalt-dark); font: 700 clamp(1.7rem, 3vw, 2.4rem) var(--font-editorial); }
   dl { margin: 0; }

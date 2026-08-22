@@ -3,6 +3,6 @@ export const siteConfig = {
   blogTitle: "勞什's Blog",
   legalName: '盧鼎頤',
   email: 'dennylulu1215@gmail.com',
-  avatar: null as string | null,
-  avatarAlt: '勞什的大頭照',
+  avatar: '/images/avatar-makima.webp' as string | null,
+  avatarAlt: '勞什使用的紅髮玩偶頭像',
 } as const;

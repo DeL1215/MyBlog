@@ -29,8 +29,8 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     <div class="hero-inner shell">
       <div class="hero-copy">
         <h1 id="hero-title">{siteConfig.blogTitle}</h1>
-        <p class="hero-statement">記錄技術，也記錄感受。</p>
-        <p class="hero-description">收錄電子、程式、藝術成果，以及製作過程裡值得留下的問題與想法。</p>
+        <p class="hero-statement">在技術與藝術之間，持續學習，也認真實作。</p>
+        <p class="hero-description">我關心電子、程式與視覺表達。這裡收錄我的作品，也留下過程中的思考與修正。</p>
         <div class="hero-actions">
           <TextLink href="/blog/" tone="light">閱讀文章</TextLink>
           <a class="outline-action" href={withBase('/achievements/')}>瀏覽成果 <ArrowIcon size={19} /></a>
@@ -105,10 +105,9 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
       <span class="portrait-orbit" aria-hidden="true"></span>
     </div>
     <div class="about-copy">
-      <h2 id="about-title">關於</h2>
-      <p>我是 <strong>{siteConfig.nickname}</strong>（{siteConfig.legalName}），畢業於大安高工資訊科，目前就讀於台灣科技大學電子工程系。</p>
-      <p class="avatar-note">大頭照已設為全站共用插槽，之後換一張照片就能同步更新。</p>
-      <TextLink href="/about/">關於我</TextLink>
+      <h2 id="about-title">關於我</h2>
+      <p>我是 <strong>{siteConfig.nickname}</strong>（{siteConfig.legalName}）。我在資電技術與藝術創作之間持續學習與實作，目前就讀於台灣科技大學電子工程系。</p>
+      <TextLink href="/about/">詳細介紹</TextLink>
     </div>
   </section>
 </BaseLayout>
@@ -191,7 +190,6 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   .portrait-orbit { position: absolute; width: min(120%, 480px); aspect-ratio: 1.7; border: 1px solid rgb(23 24 29 / .32); border-radius: 50%; transform: rotate(-17deg); }
   .about-copy p { max-width: 38ch; margin: 30px 0 0; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.9; }
   .about-copy strong { color: var(--cobalt-dark); font-weight: 800; }
-  .about-copy .avatar-note { margin: 14px 0 26px; color: var(--muted); font-size: .94rem; }
 
   @media (prefers-reduced-motion: no-preference) {
     .hero-copy { animation: hero-copy-in .7s cubic-bezier(.16, 1, .3, 1) both; }

@@ -2,6 +2,8 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { withBase } from '../utils/paths';
+import { siteConfig } from '../config/site';
 
 interface Props {
   title: string;
@@ -11,7 +13,7 @@ interface Props {
 
 const { title, description, image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const socialImage = image ? new URL(image, Astro.site) : undefined;
+const socialImage = image ? new URL(withBase(image), Astro.site) : undefined;
 ---
 
 <!doctype html>
@@ -21,10 +23,10 @@ const socialImage = image ? new URL(image, Astro.site) : undefined;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#111319" />
+    <meta name="theme-color" content="#17181d" />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="alternate" type="application/rss+xml" title="盧鼎頤的文章" href="/rss.xml" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${siteConfig.nickname}的文章`} href={withBase('/rss.xml')} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -35,11 +37,11 @@ const socialImage = image ? new URL(image, Astro.site) : undefined;
   </head>
   <body>
     <!--
-      THESIS: 這是一個高級但克制的個人部落格，以夜間美術館的材質呈現成果與思考。
-      OWN-WORLD: Museum Nocturne 夜黑、象牙紙面與青瓷綠高光；古典雕塑影像配現代霧面玻璃 UI。
-      STORY: 訪客先理解網站用途，再閱讀文章、瀏覽成果，最後認識作者。
-      FIRST VIEWPORT: 用途導向的部落格標題居左，現代古典雕塑影像居右，玻璃成果索引置底。
-      FORM: 高級編輯型部落格，Awwwards 與 21st.dev 只作構圖及材質參考。
+      THESIS: 資電與藝術是同一個觀察、實驗與製作過程；Blog 以勞什的視角統整兩者。
+      OWN-WORLD: 掃描暖白紙張、近黑墨色、鈷藍、攝影剪貼、像素切口、訊號軌跡與編輯式大字。
+      STORY: 先認識勞什's Blog，再看視覺語彙、成果、文章與作者背景。
+      FIRST VIEWPORT: 左側為可自訂 Blog 名稱與簡介，右側為圖樣化電子拼貼；不以寫實 AI 元件冒充真實物件。
+      FORM: Y2K 實驗性編輯出版與掃描拼貼，基於使用者提供的四張視覺參考。
       FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
     -->
     <a class="skip-link" href="#main-content">跳到主要內容</a>

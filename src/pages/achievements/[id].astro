@@ -10,6 +10,6 @@ export async function getStaticPaths() {
 const { achievement } = Astro.props;
 const { Content } = await render(achievement);
 ---
-<ContentLayout title={achievement.data.title} description={achievement.data.description} meta={`${achievementCategoryLabel[achievement.data.category]} / ${achievementTypeLabel[achievement.data.type]} / ${achievement.data.year}`} image={achievement.data.cover} imageAlt={achievement.data.coverAlt}>
+<ContentLayout title={achievement.data.title} description={achievement.data.description} meta={`${achievementCategoryLabel[achievement.data.category]} / ${achievementTypeLabel[achievement.data.type]} / ${achievement.data.year}`} image={achievement.data.cover} imageAlt={achievement.data.coverAlt} visualVariant={achievement.data.category}>
   <Content />
 </ContentLayout>

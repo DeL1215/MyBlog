@@ -1,5 +1,6 @@
 ---
 import ArrowIcon from './ArrowIcon.astro';
+import { withBase } from '../utils/paths';
 
 interface Props {
   href: string;
@@ -9,23 +10,25 @@ interface Props {
 const { href, tone = 'ink' } = Astro.props;
 ---
 
-<a class:list={['text-link', `text-link--${tone}`]} href={href}><slot /><ArrowIcon size={18} /></a>
+<a class:list={['text-link', `text-link--${tone}`]} href={withBase(href)}><slot /><ArrowIcon size={18} /></a>
 
 <style>
   .text-link {
     width: fit-content;
+    min-height: 48px;
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    border-bottom: 1px solid currentColor;
-    padding: 8px 0;
-    font: 600 .9rem var(--font-body);
+    justify-content: center;
+    gap: 18px;
+    padding: 10px 0;
+    font: 700 .96rem var(--font-body);
     text-decoration: none;
+    transition: color var(--motion), background var(--motion), transform var(--motion);
   }
-  .text-link--ink { color: var(--blue); }
-  .text-link--light { padding: 10px 14px; color: var(--flame); background: var(--glass); border: 1px solid var(--glass-border); border-radius: 12px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: background var(--motion), transform var(--motion); }
-  .text-link--light:hover { background: var(--glass-strong); }
+  .text-link--ink { color: var(--rust-dark); border-bottom: 2px solid currentColor; }
+  .text-link--light { min-width: 156px; padding-inline: 22px; color: var(--chalk); background: var(--rust); }
+  .text-link--light:hover { background: var(--rust-dark); }
   .text-link :global(svg) { transition: transform var(--motion); }
   .text-link:hover :global(svg) { transform: translate(3px, -3px); }
-  .text-link:active { transform: translateY(1px); }
+  .text-link:active { transform: translateY(1px) scale(.99); }
 </style>

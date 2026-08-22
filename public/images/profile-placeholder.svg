@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
-  <title id="title">大頭照預留圖片</title>
-  <desc id="desc">深藍與暖橙色構成的中性人物剪影，之後可替換為盧鼎頤的照片。</desc>
-  <rect width="600" height="600" fill="#c9c1b1"/>
-  <circle cx="300" cy="214" r="106" fill="#2c3b4d"/>
-  <path d="M92 600c12-162 85-257 208-257s196 95 208 257H92Z" fill="#1b2632"/>
-  <path d="M454 0h146v236c-51-30-99-35-146-14V0Z" fill="#ffb162"/>
-  <path d="M0 468c66-32 126-42 180-28v160H0V468Z" fill="#a35139"/>
-</svg>

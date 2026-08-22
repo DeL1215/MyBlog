@@ -1,112 +1,44 @@
 ---
-const path = Astro.url.pathname;
+import { withBase } from '../utils/paths';
+import { siteConfig } from '../config/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
   { href: '/', label: '首頁' },
   { href: '/achievements/', label: '成果' },
   { href: '/blog/', label: '文章' },
   { href: '/about/', label: '關於' },
-];
+].map((link) => ({ ...link, url: withBase(link.href) }));
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="盧鼎頤首頁">盧鼎頤</a>
-  <nav aria-label="主要導覽">
-    {links.map((link) => (
-      <a href={link.href} aria-current={path === link.href || (link.href !== '/' && path.startsWith(link.href)) ? 'page' : undefined}>
-        {link.label}
-      </a>
-    ))}
-  </nav>
+  <div class="header-inner">
+    <a class="brand" href={withBase('/')} aria-label={`${siteConfig.blogTitle} 首頁`}><span>{siteConfig.blogTitle}</span></a>
+    <nav aria-label="主要導覽">
+      {links.map((link) => (
+        <a href={link.url} aria-current={path === link.url.replace(/\/$/, '') || (link.href !== '/' && path.startsWith(link.url.replace(/\/$/, ''))) ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
 
 <style>
-  .site-header {
-    position: sticky;
-    z-index: 100;
-    top: 12px;
-    width: min(calc(100% - 24px), var(--page-width));
-    min-height: 64px;
-    margin: 12px auto;
-    padding-inline: 24px;
-    color: var(--paper);
-    background: rgba(17, 19, 25, .74);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
-    box-shadow: 0 18px 60px rgba(5, 7, 12, .2), inset 0 1px 0 rgba(255, 255, 255, .06);
-    backdrop-filter: blur(22px) saturate(125%);
-    -webkit-backdrop-filter: blur(22px) saturate(125%);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 44px;
-  }
-
-  .brand {
-    color: var(--paper);
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    letter-spacing: .08em;
-    text-decoration: none;
-  }
-
-  nav {
-    display: flex;
-    gap: clamp(24px, 4vw, 64px);
-  }
-
-  nav a {
-    color: var(--paper);
-    font-family: var(--font-body);
-    font-size: .86rem;
-    letter-spacing: .04em;
-    padding: 18px 0 8px;
-    text-decoration: none;
-    position: relative;
-  }
-
-  nav a::after {
-    position: absolute;
-    content: '';
-    height: 1px;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--motion);
-  }
-
-  nav a:hover::after,
-  nav a[aria-current='page']::after {
-    color: var(--flame);
-    transform: scaleX(1);
-  }
-
-  nav a:hover,
-  nav a[aria-current='page'] { color: var(--flame); }
+  .site-header { position: sticky; z-index: 100; top: 0; color: var(--ink); background: rgb(252 251 248 / .94); border-bottom: 1px solid var(--rule); backdrop-filter: blur(14px); }
+  .header-inner { width: min(calc(100% - 72px), var(--page-width)); min-height: 74px; margin-inline: auto; display: grid; grid-template-columns: 1fr auto; align-items: stretch; }
+  .brand { width: fit-content; display: flex; align-items: center; color: var(--ink); font: 700 1.38rem/1 var(--font-editorial); letter-spacing: -.025em; text-decoration: none; }
+  .brand::before { width: 12px; height: 100%; margin-right: 16px; content: ''; background: var(--rust); clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%); }
+  nav { display: flex; align-items: stretch; gap: clamp(22px, 4vw, 62px); }
+  nav a { position: relative; min-width: 44px; display: grid; place-items: center; color: var(--ink); font-size: .92rem; font-weight: 600; text-decoration: none; }
+  nav a::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 4px; content: ''; background: var(--rust); transform: scaleX(0); transform-origin: left; transition: transform var(--motion); }
+  nav a:hover, nav a[aria-current='page'] { color: var(--rust-dark); }
+  nav a:hover::after, nav a[aria-current='page']::after { transform: scaleX(1); }
 
   @media (max-width: 700px) {
-    .site-header {
-      top: 8px;
-      width: calc(100% - 16px);
-      min-height: auto;
-      margin-block: 8px;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-      padding-block: 14px 10px;
-      padding-inline: 16px;
-      border-radius: 14px;
-    }
-
-    .brand { font-size: 1.25rem; }
-    nav { gap: 14px; }
-    nav a { font-size: .82rem; padding: 10px 0 6px; letter-spacing: .06em; }
-  }
-
-  @media (max-width: 410px) {
-    .site-header { display: block; }
-    nav { margin-top: 14px; justify-content: space-between; }
+    .header-inner { width: calc(100% - 32px); min-height: 0; grid-template-columns: 1fr; }
+    .brand { min-height: 54px; font-size: 1.16rem; }
+    .brand::before { width: 8px; margin-right: 10px; }
+    nav { min-height: 48px; justify-content: space-between; gap: 8px; border-top: 1px solid var(--rule); }
+    nav a { flex: 1; font-size: .9rem; }
   }
 </style>

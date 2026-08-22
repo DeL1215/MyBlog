@@ -1,0 +1,50 @@
+---
+interface Props {
+  variant?: 'achievements' | 'blog' | 'about' | 'technical' | 'artistic';
+}
+
+const { variant = 'blog' } = Astro.props;
+---
+
+<div class:list={['editorial-visual', `editorial-visual--${variant}`]} aria-hidden="true">
+  <span class="plate"></span>
+  <span class="ring ring-a"></span><span class="ring ring-b"></span>
+  <span class="beam"></span>
+  <span class="pixel pixel-a"></span><span class="pixel pixel-b"></span><span class="pixel pixel-c"></span>
+  <svg viewBox="0 0 640 360" preserveAspectRatio="none">
+    <path class="wave wave-a" d="M-30 218 C70 55 154 330 258 190 S450 45 536 207 S670 306 700 138" />
+    <path class="wave wave-b" d="M-20 126 C82 292 190 42 324 182 S520 302 682 91" />
+    <path class="step" d="M0 320H130V270H246V328H382V244H496V300H640" />
+  </svg>
+  <span class="code">SIG / {variant.toUpperCase()} / 26</span>
+</div>
+
+<style>
+  .editorial-visual { position: relative; width: min(46vw, 680px); min-width: 420px; aspect-ratio: 1.55; overflow: hidden; background: #101116; border: 1px solid rgb(244 241 233 / .18); }
+  .editorial-visual::after { position: absolute; inset: 0; content: ''; background: url('../assets/images/paper-texture-v2.png') center / 620px repeat; mix-blend-mode: screen; opacity: .08; }
+  svg { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; }
+  path { fill: none; vector-effect: non-scaling-stroke; }
+  .wave { stroke: var(--cobalt-soft); stroke-width: 2.4; }
+  .wave-b { stroke: var(--chalk); stroke-width: 1; opacity: .5; }
+  .step { stroke: var(--cobalt); stroke-width: 18; }
+  .plate { position: absolute; right: -4%; bottom: -12%; width: 54%; aspect-ratio: 1; background: var(--cobalt); clip-path: polygon(0 30%, 40% 30%, 40% 0, 72% 0, 72% 42%, 100% 42%, 100% 100%, 24% 100%, 24% 72%, 0 72%); }
+  .ring { position: absolute; z-index: 1; border: 1px solid rgb(244 241 233 / .5); border-radius: 50%; }
+  .ring-a { width: 46%; aspect-ratio: 1; right: 16%; top: 11%; }
+  .ring-b { width: 31%; aspect-ratio: 1; right: 23%; top: 23%; border-color: var(--accent, var(--rust)); }
+  .beam { position: absolute; z-index: 3; left: 9%; top: 22%; width: 44%; height: 8px; background: var(--accent, var(--rust)); transform: rotate(-12deg); }
+  .pixel { position: absolute; z-index: 4; width: 12px; aspect-ratio: 1; background: var(--chalk); }
+  .pixel-a { right: 8%; top: 10%; }.pixel-b { right: 4%; top: 10%; }.pixel-c { right: 4%; top: 17%; background: var(--accent, var(--rust)); }
+  .code { position: absolute; z-index: 4; left: 24px; bottom: 20px; color: var(--chalk); font: 700 .72rem/1 var(--font-ui); letter-spacing: .16em; }
+  .editorial-visual--achievements { --accent: var(--rust); }
+  .editorial-visual--achievements .wave-b { stroke: var(--rust-soft); opacity: .9; }
+  .editorial-visual--blog { --accent: var(--rust); }
+  .editorial-visual--blog .plate { background: var(--rust); transform: rotate(8deg); }
+  .editorial-visual--blog .step { stroke: var(--cobalt); stroke-width: 8; }
+  .editorial-visual--about { --accent: var(--rust); }
+  .editorial-visual--about .ring-a { width: 55%; right: 12%; top: 2%; border-width: 2px; }
+  .editorial-visual--about .ring-b { width: 40%; right: 28%; top: 18%; }
+  .editorial-visual--technical { --accent: var(--cobalt-soft); }
+  .editorial-visual--artistic { --accent: var(--rust); }
+  .editorial-visual--artistic .plate, .editorial-visual--artistic .step { background: var(--rust); stroke: var(--rust); }
+  @media (max-width: 700px) { .editorial-visual { width: 100%; min-width: 0; } }
+</style>

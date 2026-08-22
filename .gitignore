@@ -4,3 +4,21 @@ dist/
 .DS_Store
 *.log
 README.md
+
+# Local design/review material — keep on this computer, never publish
+.codex-remote-attachments/
+.impeccable/
+design-concepts/
+DESIGN.md
+PRODUCT.md
+ASSET-CREDITS.md
+
+# Working image sources. Only the texture below is part of production.
+src/assets/images/*
+!src/assets/images/paper-texture-v2.png
+
+# Retired or reference-only public assets
+public/images/editorial-arches.webp
+public/images/hero-modern-classical.webp
+public/images/profile-placeholder.svg
+public/images/proun-no-83.webp

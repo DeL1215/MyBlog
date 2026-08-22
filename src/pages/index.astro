@@ -15,11 +15,11 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 ---
 
-<BaseLayout title={siteConfig.blogTitle} description={`${siteConfig.nickname}的個人部落格，記錄電子、程式、藝術成果與製作思考。`} image="/images/hero-editorial-collage-v4.webp">
+<BaseLayout title={siteConfig.blogTitle} description={`${siteConfig.nickname}的個人部落格，記錄電子、程式、藝術成果與製作思考。`} image="/images/hero-editorial-collage-v5.webp">
   <section class="hero" aria-labelledby="hero-title">
     <img
       class="hero-artwork"
-      src={withBase('/images/hero-editorial-collage-v4.webp')}
+      src={withBase('/images/hero-editorial-collage-v5.webp')}
       alt=""
       width="1536"
       height="1024"
@@ -210,12 +210,14 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
 
   @media (max-width: 700px) {
     .hero { min-height: 0; display: flex; flex-direction: column; }
-    .hero-inner { min-height: 600px; align-items: flex-start; padding-top: 56px; padding-bottom: 310px; }
-    .hero-artwork { object-position: 70% center; }
+    .hero-inner { min-height: 690px; align-items: flex-start; padding-top: 44px; padding-bottom: 318px; }
+    .hero-artwork { object-position: 24% center; }
     .hero-copy { width: 100%; }
-    h1 { max-width: 7ch; font-size: clamp(3.5rem, 17vw, 5rem); }
-    .hero-statement { margin-top: 24px; font-size: 1.3rem; }
-    .hero-description { max-width: 25ch; font-size: 1rem; }
+    h1 { max-width: 7ch; font-size: clamp(3.1rem, 15vw, 4.35rem); line-height: .9; }
+    .hero-statement { max-width: 17ch; margin-top: 30px; font-size: 1.18rem; line-height: 1.5; }
+    .hero-description { max-width: 24ch; margin-top: 18px; font-size: .98rem; line-height: 1.72; }
+    .hero-actions { width: min(100%, 250px); display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
+    .hero-actions :global(.text-link), .outline-action { width: 100%; }
     .section-index > div { grid-template-columns: 1fr; }
     .section-index a { min-height: 96px; border-right: 1px solid var(--rule-on-dark); border-bottom: 1px solid var(--rule-on-dark); }
     .visual-language { grid-template-columns: 1fr; min-height: 0; margin-block: 70px; overflow: visible; background: transparent; }

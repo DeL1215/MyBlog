@@ -1,3 +1,6 @@
+Exit code: 0
+Wall time: 0.4 seconds
+Output:
 ---
 import { withBase } from '../utils/paths';
 
@@ -48,12 +51,9 @@ const { items } = Astro.props;
         </article>
       ))}
     </div>
-    <div class="showcase-controls">
-      <button type="button" data-previous aria-label="上一件成果">←</button>
-      <span aria-live="polite"><b data-current>01</b> / {String(items.length).padStart(2, '0')}</span>
-      <button type="button" data-next aria-label="下一件成果">→</button>
-      <button class="showcase-toggle" type="button" data-toggle aria-label="暫停自動輪播">暫停</button>
-    </div>
+    <button class="showcase-arrow showcase-arrow--previous" type="button" data-previous aria-label="上一件成果">←</button>
+    <button class="showcase-arrow showcase-arrow--next" type="button" data-next aria-label="下一件成果">→</button>
+    <p class="showcase-count" aria-live="polite"><b data-current>01</b> / {String(items.length).padStart(2, '0')}</p>
   </aside>
 )}
 
@@ -61,11 +61,9 @@ const { items } = Astro.props;
   document.querySelectorAll<HTMLElement>('[data-showcase]').forEach((showcase) => {
     const slides = [...showcase.querySelectorAll<HTMLElement>('[data-slide]')];
     const current = showcase.querySelector<HTMLElement>('[data-current]');
-    const toggle = showcase.querySelector<HTMLButtonElement>('[data-toggle]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let active = 0;
     let timer: number | undefined;
-    let manuallyPaused = false;
 
     const show = (next: number) => {
       active = (next + slides.length) % slides.length;
@@ -81,17 +79,11 @@ const { items } = Astro.props;
     const stop = () => { if (timer) window.clearInterval(timer); timer = undefined; };
     const start = () => {
       stop();
-      if (!manuallyPaused && !reducedMotion.matches && slides.length > 1) timer = window.setInterval(() => show(active + 1), 4800);
+      if (!reducedMotion.matches && slides.length > 1) timer = window.setInterval(() => show(active + 1), 4800);
     };
 
     showcase.querySelector('[data-previous]')?.addEventListener('click', () => { show(active - 1); start(); });
     showcase.querySelector('[data-next]')?.addEventListener('click', () => { show(active + 1); start(); });
-    toggle?.addEventListener('click', () => {
-      manuallyPaused = !manuallyPaused;
-      toggle.textContent = manuallyPaused ? '播放' : '暫停';
-      toggle.setAttribute('aria-label', manuallyPaused ? '繼續自動輪播' : '暫停自動輪播');
-      manuallyPaused ? stop() : start();
-    });
     showcase.addEventListener('mouseenter', stop);
     showcase.addEventListener('mouseleave', start);
     showcase.addEventListener('focusin', stop);
@@ -119,11 +111,13 @@ const { items } = Astro.props;
   .showcase-copy h2 { margin: 0; font: 700 clamp(1.55rem, 2.6vw, 2.6rem)/1.15 var(--font-editorial); letter-spacing: -.035em; }
   .showcase-description { margin-top: 16px; color: var(--ink-soft); font-size: clamp(.86rem, 1vw, 1rem); line-height: 1.65; }
   .showcase-link { margin-top: auto; padding-top: 18px; color: var(--category); font-size: .88rem; font-weight: 800; }
-  .showcase-controls { height: 42px; display: flex; align-items: center; gap: 4px; margin-top: 10px; }
-  .showcase-controls button { width: 42px; height: 42px; border: 1px solid var(--ink); color: var(--ink); background: rgb(252 251 248 / .9); cursor: pointer; font: 700 .85rem var(--font-display); }
-  .showcase-controls button:hover { color: var(--chalk); background: var(--ink); }
-  .showcase-controls > span { min-width: 82px; text-align: center; font: 600 .75rem var(--font-display); letter-spacing: .08em; }
-  .showcase-controls .showcase-toggle { width: auto; margin-left: 6px; padding-inline: 14px; }
+  .showcase-arrow { position: absolute; z-index: 5; top: calc(50% - 10px); width: 46px; height: 46px; border: 1px solid var(--ink); color: var(--ink); background: rgb(252 251 248 / .94); box-shadow: 0 8px 24px rgb(23 24 29 / .14); cursor: pointer; font: 700 1rem var(--font-display); transition: color var(--motion), background var(--motion), transform var(--motion); }
+  .showcase-arrow:hover { color: var(--chalk); background: var(--ink); }
+  .showcase-arrow--previous { left: -14px; transform: translateY(-50%); }
+  .showcase-arrow--previous:hover { transform: translate(-3px, -50%); }
+  .showcase-arrow--next { right: -14px; transform: translateY(-50%); }
+  .showcase-arrow--next:hover { transform: translate(3px, -50%); }
+  .showcase-count { margin: 10px 0 0; text-align: center; font: 600 .75rem var(--font-display); letter-spacing: .1em; }
   .default-cover { position: relative; overflow: hidden; background: #ecebe6; }
   .default-cover::before { position: absolute; inset: 0; content: ''; opacity: .42; background: repeating-linear-gradient(90deg, transparent 0 39px, currentColor 40px), repeating-linear-gradient(0deg, transparent 0 39px, currentColor 40px); }
   .default-cover[data-category='technical'] { color: var(--cobalt); background: linear-gradient(145deg, #f6f4ee 0 42%, #d9e0ff 100%); }
@@ -147,8 +141,11 @@ const { items } = Astro.props;
     .showcase-copy p { margin-bottom: 12px; font-size: .68rem; }
     .showcase-copy h2 { font-size: 1.25rem; }
     .showcase-description { display: -webkit-box; overflow: hidden; font-size: .78rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-    .showcase-controls { justify-content: flex-end; }
-    .showcase-controls .showcase-toggle { display: none; }
+    .showcase-arrow { top: calc(50% + 4px); width: 40px; height: 40px; }
+    .showcase-arrow--previous { left: -4px; transform: translateY(-50%); }
+    .showcase-arrow--previous:hover { transform: translate(-2px, -50%); }
+    .showcase-arrow--next { right: -4px; transform: translateY(-50%); }
+    .showcase-arrow--next:hover { transform: translate(2px, -50%); }
     .default-cover::before { background-size: 28px 28px; }
   }
   @media (prefers-reduced-motion: reduce) { .showcase-slide { transition: opacity .01ms; transform: none; } }

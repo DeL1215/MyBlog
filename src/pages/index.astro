@@ -15,7 +15,7 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft))
 const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 ---
 
-<BaseLayout title={siteConfig.blogTitle} description={`${siteConfig.nickname}的個人部落格，記錄電子、程式、藝術成果與製作思考。`} image="/images/hero-editorial-collage-v5.webp">
+<BaseLayout title={siteConfig.blogTitle} description={`${siteConfig.nickname}的個人部落格，收錄技術與藝術作品、學習經歷和個人思考。`} image="/images/hero-editorial-collage-v5.webp">
   <section class="hero" aria-labelledby="hero-title">
     <img
       class="hero-artwork"
@@ -29,8 +29,8 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     <div class="hero-inner shell">
       <div class="hero-copy">
         <h1 id="hero-title">{siteConfig.blogTitle}</h1>
-        <p class="hero-statement">一個收錄作品與思考的小部落格。</p>
-        <p class="hero-description">我把做過的事和想法留在這裡，也希望你能因此更認識我。</p>
+        <p class="hero-statement">這是一個簡單的小部落格。</p>
+        <p class="hero-description">收錄我的作品和思考，也希望透過這些內容，讓你更認識我。</p>
         <div class="hero-actions">
           <TextLink href="/blog/" tone="light">閱讀文章</TextLink>
           <a class="outline-action" href={withBase('/achievements/')}>瀏覽成果 <ArrowIcon size={19} /></a>
@@ -41,26 +41,26 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
 
   <nav class="section-index" aria-label="首頁內容索引">
     <div class="shell">
-      <a href="#visual-language"><strong>視覺語彙</strong><span>藝術與電子素材的對話</span><ArrowIcon /></a>
-      <a href="#achievements"><strong>成果</strong><span>從概念到落地的紀錄</span><ArrowIcon /></a>
-      <a href="#articles"><strong>文章</strong><span>方法、失敗與思考</span><ArrowIcon /></a>
+      <a href="#about-intro"><strong>關於我</strong><span>能力、經歷與興趣</span><ArrowIcon /></a>
+      <a href="#achievements"><strong>成果</strong><span>技術、競賽與創作</span><ArrowIcon /></a>
+      <a href="#articles"><strong>文章</strong><span>製作紀錄與想法</span><ArrowIcon /></a>
     </div>
   </nav>
 
-  <section id="visual-language" class="visual-language shell" aria-labelledby="visual-title">
+  <section id="about-intro" class="visual-language shell" aria-labelledby="about-intro-title">
     <img class="visual-artwork" src={withBase('/images/editorial-botanical-collage-v1.webp')} alt="" width="1536" height="1024" loading="lazy" decoding="async" aria-hidden="true" />
     <div class="visual-copy">
       <span class="signal-mark" aria-hidden="true"></span>
-      <h2 id="visual-title">在電路與構成之間</h2>
-      <p>一邊是訊號、元件與可以被驗證的結構；另一邊是比例、材質與觀看時產生的感受。這個 Blog 把它們放在同一張工作桌上。</p>
-      <TextLink href="/about/">認識勞什</TextLink>
+      <h2 id="about-intro-title">關於我</h2>
+      <p>我對嵌入式系統開發與 AI 應用有興趣，曾參與全國技能競賽商務軟體設計職類，也累積了資料庫與軟體設計經驗。技術之外，多年的畫室經驗也影響了我看待視覺與創作的方式。</p>
+      <TextLink href="/about/">查看完整介紹</TextLink>
     </div>
   </section>
 
   <section id="achievements" class="achievements-section shell" aria-labelledby="achievements-title">
     <header>
       <h2 id="achievements-title">成果</h2>
-      <p>依領域與形式整理實作、競賽、證照和學習紀錄。</p>
+      <p>整理我做過的技術與藝術作品，以及競賽和學習紀錄。</p>
       <TextLink href="/achievements/">全部成果</TextLink>
     </header>
     <div class="register">
@@ -81,7 +81,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
     <div class="articles-inner shell">
       <header>
         <h2 id="articles-title">文章</h2>
-        <p>技術筆記、製作過程與反覆修正的紀錄。</p>
+        <p>記錄作品的製作過程、遇到的問題，以及偶爾想留下來的事。</p>
         <TextLink href="/blog/">全部文章</TextLink>
       </header>
       <div class="article-list">
@@ -105,8 +105,8 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
       <span class="portrait-orbit" aria-hidden="true"></span>
     </div>
     <div class="about-copy">
-      <h2 id="about-title">關於我</h2>
-      <p>我是 <strong>{siteConfig.nickname}</strong>（{siteConfig.legalName}）。我在資電技術與藝術創作之間持續學習與實作，目前就讀於台灣科技大學電子工程系。</p>
+      <h2 id="about-title">平時的我</h2>
+      <p>我是 <strong>{siteConfig.nickname}</strong>。除了學習與做作品，平時也喜歡看劇、玩遊戲，偶爾把感興趣的想法做成小作品。</p>
       <TextLink href="/about/">詳細介紹</TextLink>
     </div>
   </section>
@@ -114,6 +114,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
 
 <style>
   .hero { position: relative; isolation: isolate; min-height: calc(100dvh - 74px); overflow: hidden; background: #f3f0e8; }
+  .visual-language, .achievements-section, .articles-section, .about-section { scroll-margin-top: 96px; }
   .hero-artwork { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
   .hero-inner { min-height: calc(100dvh - 74px); display: flex; align-items: center; padding-block: 64px; }
   .hero-copy { width: min(42%, 650px); }

@@ -10,9 +10,9 @@ import EditorialVisual from '../../components/EditorialVisual.astro';
 const achievements = (await getCollection('achievements', ({ data }) => !data.draft)).sort((a, b) => b.data.year - a.data.year);
 ---
 
-<BaseLayout title={`成果｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}的技術型、藝術型成果，依作品、競賽、證照與經歷整理。`}>
+<BaseLayout title={`成果｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}的技術作品、藝術創作、競賽與學習紀錄。`}>
   <section class="page-masthead">
-    <div class="page-masthead__inner shell"><div><h1 class="page-title">成果</h1><p class="page-masthead__intro">技術型與藝術型成果，可再依作品、競賽、證照和學習經歷篩選。</p></div><EditorialVisual variant="achievements" /></div>
+    <div class="page-masthead__inner shell"><div><h1 class="page-title">成果</h1><p class="page-masthead__intro">這裡整理我的技術作品、藝術創作、競賽與其他學習紀錄。</p></div><EditorialVisual variant="achievements" /></div>
   </section>
   <section class="archive shell">
       <div class="filter-panel" aria-label="成果篩選">

@@ -5,9 +5,9 @@ import { siteConfig } from '../config/site';
 import EditorialVisual from '../components/EditorialVisual.astro';
 ---
 
-<BaseLayout title={`關於｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}（${siteConfig.legalName}），畢業於大安高工資訊科，目前就讀於台灣科技大學電子工程系。`}>
+<BaseLayout title={`關於｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}對嵌入式系統開發、AI 應用與藝術創作的學習經歷。`}>
   <section class="page-masthead">
-    <div class="page-masthead__inner shell"><div><h1 class="page-title">關於</h1><p class="page-masthead__intro">我的學習經歷，以及對技術與藝術的興趣。</p></div><EditorialVisual variant="about" /></div>
+    <div class="page-masthead__inner shell"><div><h1 class="page-title">關於我</h1><p class="page-masthead__intro">一些關於我的學習、興趣與日常。</p></div><EditorialVisual variant="about" /></div>
   </section>
   <section class="about-page shell">
     <div class="intro">
@@ -19,8 +19,9 @@ import EditorialVisual from '../components/EditorialVisual.astro';
       </div>
       <div class="intro-copy">
         <h2>{siteConfig.nickname}</h2>
-        <p>我是 {siteConfig.nickname}，本名 {siteConfig.legalName}。我喜歡電子與程式，也在意作品的視覺、比例和表達方式。目前就讀於台灣科技大學電子工程系，畢業於大安高工資訊科。</p>
-        <p class="purpose">我希望自己不只把東西做出來，也能理解它如何運作、為什麼以這樣的方式呈現。這裡記錄我的作品，以及一路上的思考與修正。</p>
+        <p>我是 {siteConfig.nickname}，目前就讀於台灣科技大學電子工程系。我對嵌入式系統開發與 AI 應用有興趣，曾參與全國技能競賽商務軟體設計職類，並累積了一些資料庫與軟體設計經驗。</p>
+        <p class="purpose">我曾在畫室學習多年。那段時間對我的美感與藝術觀念產生了很深的影響，也讓我在製作作品時，除了功能之外，同樣在意視覺與表達方式。</p>
+        <p class="purpose">平時我喜歡看劇、玩遊戲，也會做一些自己感興趣的小作品。這個部落格就是我整理這些作品與想法的地方。</p>
       </div>
     </div>
     <div class="details">
@@ -29,6 +30,7 @@ import EditorialVisual from '../components/EditorialVisual.astro';
         <div><dt>目前</dt><dd>國立台灣科技大學<br />電子工程系</dd></div>
         <div><dt>畢業</dt><dd>臺北市立大安高級工業職業學校<br />資訊科</dd></div>
         <div><dt>聯絡</dt><dd><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></dd></div>
+        <div><dt>GitHub</dt><dd><a href={siteConfig.github} target="_blank" rel="noreferrer">github.com/DeL1215</a></dd></div>
       </dl>
     </div>
   </section>

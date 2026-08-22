@@ -9,9 +9,9 @@ import EditorialVisual from '../../components/EditorialVisual.astro';
 const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 ---
-<BaseLayout title={`文章｜${siteConfig.blogTitle}`} description={`${siteConfig.blogTitle} 的文章與製作紀錄。`}>
+<BaseLayout title={`文章｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}的製作紀錄與個人想法。`}>
   <section class="page-masthead">
-    <div class="page-masthead__inner shell"><div><h1 class="page-title">文章</h1><p class="page-masthead__intro">整理製作過程、方法、失敗與修正。</p></div><EditorialVisual variant="blog" /></div>
+    <div class="page-masthead__inner shell"><div><h1 class="page-title">文章</h1><p class="page-masthead__intro">記錄製作過程，也留下一些當下的想法。</p></div><EditorialVisual variant="blog" /></div>
   </section>
   <section class="blog-index shell">
     <div class="post-list">

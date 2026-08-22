@@ -10,7 +10,7 @@ export async function GET(context: { site: URL }) {
 
   return rss({
     title: `${siteConfig.nickname}的文章`,
-    description: `${siteConfig.blogTitle} 的文章與製作紀錄。`,
+    description: `${siteConfig.nickname}的製作紀錄與個人想法。`,
     site: context.site,
     items: posts.map((post) => ({
       title: post.data.title,

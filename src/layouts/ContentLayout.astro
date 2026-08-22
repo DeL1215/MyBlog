@@ -17,8 +17,8 @@ const { title, description, meta, image, imageAlt = '', visualVariant = 'blog' }
 ---
 
 <BaseLayout title={`${title}｜${siteConfig.blogTitle}`} description={description} image={image}>
-  <article class="content-shell">
-    <header class="content-header">
+  <article class="content-shell" data-visual={visualVariant}>
+    <header class="content-header" data-visual={visualVariant}>
       <div class="content-header__copy"><p>{meta}</p><h1>{title}</h1><div class="lead">{description}</div></div>
       <EditorialVisual variant={visualVariant} />
     </header>
@@ -36,6 +36,11 @@ const { title, description, meta, image, imageAlt = '', visualVariant = 'blog' }
 
   .content-header { position: relative; isolation: isolate; overflow: hidden; width: 100%; max-width: none; display: grid; grid-template-columns: minmax(300px, 1fr) minmax(420px, .8fr); gap: clamp(44px, 7vw, 110px); align-items: center; padding: clamp(70px, 8vw, 110px) max(24px, calc((100% - 1420px) / 2)); color: var(--chalk); background: var(--ink); }
   .content-header::after { position: absolute; z-index: -1; right: -8vw; bottom: -24%; width: min(45vw, 620px); aspect-ratio: 1.5; content: ''; background: var(--rust); clip-path: polygon(0 24%, 30% 24%, 30% 0, 72% 0, 72% 40%, 100% 40%, 100% 100%, 40% 100%, 40% 72%, 0 72%); }
+  .content-header[data-visual='technical'] { grid-template-columns: 1fr; background: #101116 url('../assets/images/masthead-technical-collage-v1.png') center / cover no-repeat; }
+  .content-header[data-visual='artistic'] { grid-template-columns: 1fr; background: #241b1d url('../assets/images/masthead-artistic-collage-v1.png') center / cover no-repeat; }
+  .content-header[data-visual='blog'] { grid-template-columns: 1fr; background: #242126 url('../assets/images/masthead-blog-collage-v1.png') center / cover no-repeat; }
+  .content-header[data-visual='technical']::after, .content-header[data-visual='artistic']::after, .content-header[data-visual='blog']::after { display: none; }
+  .content-header[data-visual='technical'] .editorial-visual, .content-header[data-visual='artistic'] .editorial-visual, .content-header[data-visual='blog'] .editorial-visual { display: none; }
   .content-header p {
     margin: 0 0 32px;
     color: var(--steel-light);

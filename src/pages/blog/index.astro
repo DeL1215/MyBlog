@@ -10,7 +10,7 @@ const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a,
 const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 ---
 <BaseLayout title={`文章｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}的製作紀錄與個人想法。`}>
-  <section class="page-masthead">
+  <section class="page-masthead page-masthead--blog">
     <div class="page-masthead__inner shell"><div><h1 class="page-title">文章</h1><p class="page-masthead__intro">記錄製作過程，也留下一些當下的想法。</p></div><EditorialVisual variant="blog" /></div>
   </section>
   <section class="blog-index shell">
@@ -28,7 +28,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('zh-TW', { year: 'num
   </section>
 </BaseLayout>
 <style>
-  .blog-index { position: relative; padding-block: clamp(70px, 9vw, 130px); }
+  .blog-index { position: relative; overflow: clip; padding-block: clamp(70px, 9vw, 130px); }
   .blog-index::before { position: absolute; z-index: -1; inset: 8% -12% 18% 46%; content: ''; background: radial-gradient(circle, rgb(180 63 39 / .09), transparent 68%); }
   .post-list { border-top: 2px solid var(--ink); }
   .post-list > a { display: grid; grid-template-columns: 110px 140px 1fr 30px; gap: 28px; align-items: start; color: var(--ink); border-bottom: 1px solid var(--rule); padding: 38px 16px; text-decoration: none; transition: background var(--motion); }

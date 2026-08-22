@@ -111,11 +111,11 @@ const { items } = Astro.props;
   .showcase-copy h2 { margin: 0; font: 700 clamp(1.55rem, 2.6vw, 2.6rem)/1.15 var(--font-editorial); letter-spacing: -.035em; }
   .showcase-description { margin-top: 16px; color: var(--ink-soft); font-size: clamp(.86rem, 1vw, 1rem); line-height: 1.65; }
   .showcase-link { margin-top: auto; padding-top: 18px; color: var(--category); font-size: .88rem; font-weight: 800; }
-  .showcase-arrow { position: absolute; z-index: 5; top: calc(50% - 10px); width: 46px; height: 46px; border: 1px solid var(--ink); color: var(--ink); background: rgb(252 251 248 / .94); box-shadow: 0 8px 24px rgb(23 24 29 / .14); cursor: pointer; font: 700 1rem var(--font-display); transition: color var(--motion), background var(--motion), transform var(--motion); }
-  .showcase-arrow:hover { color: var(--chalk); background: var(--ink); }
-  .showcase-arrow--previous { left: -14px; transform: translateY(-50%); }
+  .showcase-arrow { position: absolute; z-index: 5; top: calc(50% - 10px); width: 52px; height: 52px; border: 0; border-radius: 50%; color: rgb(23 24 29 / .82); background: rgb(252 251 248 / .48); box-shadow: 0 10px 30px rgb(23 24 29 / .12); backdrop-filter: blur(10px); cursor: pointer; font: 700 1.15rem var(--font-display); transition: color var(--motion), background var(--motion), box-shadow var(--motion), transform var(--motion); }
+  .showcase-arrow:hover { color: var(--ink); background: rgb(252 251 248 / .82); box-shadow: 0 14px 34px rgb(23 24 29 / .2); }
+  .showcase-arrow--previous { left: -18px; transform: translateY(-50%); }
   .showcase-arrow--previous:hover { transform: translate(-3px, -50%); }
-  .showcase-arrow--next { right: -14px; transform: translateY(-50%); }
+  .showcase-arrow--next { right: -18px; transform: translateY(-50%); }
   .showcase-arrow--next:hover { transform: translate(3px, -50%); }
   .showcase-count { margin: 10px 0 0; text-align: center; font: 600 .75rem var(--font-display); letter-spacing: .1em; }
   .default-cover { position: relative; overflow: hidden; background: #ecebe6; }
@@ -141,7 +141,7 @@ const { items } = Astro.props;
     .showcase-copy p { margin-bottom: 12px; font-size: .68rem; }
     .showcase-copy h2 { font-size: 1.25rem; }
     .showcase-description { display: -webkit-box; overflow: hidden; font-size: .78rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-    .showcase-arrow { top: calc(50% + 4px); width: 40px; height: 40px; }
+    .showcase-arrow { top: calc(50% + 4px); width: 44px; height: 44px; }
     .showcase-arrow--previous { left: -4px; transform: translateY(-50%); }
     .showcase-arrow--previous:hover { transform: translate(-2px, -50%); }
     .showcase-arrow--next { right: -4px; transform: translateY(-50%); }

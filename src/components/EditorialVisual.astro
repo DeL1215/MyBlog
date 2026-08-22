@@ -8,9 +8,11 @@ const { variant = 'blog' } = Astro.props;
 
 <div class:list={['editorial-visual', `editorial-visual--${variant}`]} aria-hidden="true">
   <span class="plate"></span>
+  <span class="sheet sheet-a"></span><span class="sheet sheet-b"></span>
   <span class="ring ring-a"></span><span class="ring ring-b"></span>
   <span class="beam"></span>
   <span class="pixel pixel-a"></span><span class="pixel pixel-b"></span><span class="pixel pixel-c"></span>
+  <span class="stamp">{variant === 'achievements' ? 'INDEX' : variant === 'blog' ? 'NOTES' : variant === 'about' ? 'PROFILE' : variant === 'technical' ? 'SYSTEM' : 'STUDIO'}</span>
   <svg viewBox="0 0 640 360" preserveAspectRatio="none">
     <path class="wave wave-a" d="M-30 218 C70 55 154 330 258 190 S450 45 536 207 S670 306 700 138" />
     <path class="wave wave-b" d="M-20 126 C82 292 190 42 324 182 S520 302 682 91" />
@@ -28,6 +30,9 @@ const { variant = 'blog' } = Astro.props;
   .wave-b { stroke: var(--chalk); stroke-width: 1; opacity: .5; }
   .step { stroke: var(--cobalt); stroke-width: 18; }
   .plate { position: absolute; right: -4%; bottom: -12%; width: 54%; aspect-ratio: 1; background: var(--cobalt); clip-path: polygon(0 30%, 40% 30%, 40% 0, 72% 0, 72% 42%, 100% 42%, 100% 100%, 24% 100%, 24% 72%, 0 72%); }
+  .sheet { position: absolute; z-index: 1; border: 1px solid rgb(244 241 233 / .45); background: rgb(244 241 233 / .08); }
+  .sheet-a { left: 9%; top: 14%; width: 27%; height: 48%; transform: rotate(-7deg); }
+  .sheet-b { right: 12%; bottom: 12%; width: 22%; height: 34%; transform: rotate(9deg); }
   .ring { position: absolute; z-index: 1; border: 1px solid rgb(244 241 233 / .5); border-radius: 50%; }
   .ring-a { width: 46%; aspect-ratio: 1; right: 16%; top: 11%; }
   .ring-b { width: 31%; aspect-ratio: 1; right: 23%; top: 23%; border-color: var(--accent, var(--rust)); }
@@ -35,16 +40,28 @@ const { variant = 'blog' } = Astro.props;
   .pixel { position: absolute; z-index: 4; width: 12px; aspect-ratio: 1; background: var(--chalk); }
   .pixel-a { right: 8%; top: 10%; }.pixel-b { right: 4%; top: 10%; }.pixel-c { right: 4%; top: 17%; background: var(--accent, var(--rust)); }
   .code { position: absolute; z-index: 4; left: 24px; bottom: 20px; color: var(--chalk); font: 700 .72rem/1 var(--font-ui); letter-spacing: .16em; }
-  .editorial-visual--achievements { --accent: var(--rust); }
+  .stamp { position: absolute; z-index: 5; right: 22px; bottom: 18px; color: var(--chalk); font: 800 .68rem/1 var(--font-ui); letter-spacing: .18em; writing-mode: vertical-rl; }
+  .editorial-visual--achievements { --accent: var(--rust); background: linear-gradient(135deg, #18191f, #2c2630); }
   .editorial-visual--achievements .wave-b { stroke: var(--rust-soft); opacity: .9; }
-  .editorial-visual--blog { --accent: var(--rust); }
+  .editorial-visual--achievements .sheet-a { left: 16%; top: -8%; width: 24%; height: 66%; border-color: var(--rust-soft); background: rgb(180 63 39 / .17); transform: rotate(18deg); }
+  .editorial-visual--achievements .sheet-b { right: 4%; bottom: 2%; width: 39%; height: 40%; background: rgb(23 56 196 / .35); transform: rotate(0); }
+  .editorial-visual--achievements .plate { background: var(--rust); transform: rotate(-8deg); }
+  .editorial-visual--achievements .step { stroke: var(--cobalt); stroke-width: 14; }
+  .editorial-visual--blog { --accent: var(--rust); background: linear-gradient(135deg, #212126, #4a302b); }
   .editorial-visual--blog .plate { background: var(--rust); transform: rotate(8deg); }
   .editorial-visual--blog .step { stroke: var(--cobalt); stroke-width: 8; }
-  .editorial-visual--about { --accent: var(--rust); }
+  .editorial-visual--blog .sheet-a { left: 7%; top: 10%; width: 37%; height: 58%; background: rgb(252 251 248 / .18); transform: rotate(-13deg); }
+  .editorial-visual--blog .sheet-b { right: 19%; bottom: 14%; width: 31%; height: 47%; border-color: var(--rust-soft); transform: rotate(6deg); }
+  .editorial-visual--blog .ring-a { width: 60%; right: 10%; top: 12%; border-color: rgb(244 241 233 / .28); }
+  .editorial-visual--about { --accent: var(--rust); background: linear-gradient(135deg, #101116, #252b3e); }
   .editorial-visual--about .ring-a { width: 55%; right: 12%; top: 2%; border-width: 2px; }
   .editorial-visual--about .ring-b { width: 40%; right: 28%; top: 18%; }
-  .editorial-visual--technical { --accent: var(--cobalt-soft); }
-  .editorial-visual--artistic { --accent: var(--rust); }
+  .editorial-visual--technical { --accent: var(--cobalt-soft); background: linear-gradient(135deg, #0d1b52, #14161d); }
+  .editorial-visual--technical .sheet-a { border-color: var(--cobalt-soft); background: rgb(23 56 196 / .25); }
+  .editorial-visual--technical .sheet-b { right: 6%; bottom: 6%; width: 35%; height: 46%; border-color: var(--cobalt-soft); transform: rotate(0); }
+  .editorial-visual--artistic { --accent: var(--rust); background: linear-gradient(135deg, #3b1d1a, #18181c); }
   .editorial-visual--artistic .plate, .editorial-visual--artistic .step { background: var(--rust); stroke: var(--rust); }
+  .editorial-visual--artistic .sheet-a { width: 34%; height: 64%; border-color: var(--rust-soft); background: rgb(180 63 39 / .19); transform: rotate(14deg); }
+  .editorial-visual--artistic .sheet-b { right: 12%; bottom: 6%; width: 29%; height: 38%; border-color: var(--chalk); background: rgb(252 251 248 / .12); transform: rotate(-9deg); }
   @media (max-width: 700px) { .editorial-visual { width: 100%; min-width: 0; } }
 </style>

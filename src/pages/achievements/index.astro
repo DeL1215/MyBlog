@@ -11,7 +11,7 @@ const achievements = (await getCollection('achievements', ({ data }) => !data.dr
 ---
 
 <BaseLayout title={`成果｜${siteConfig.blogTitle}`} description={`${siteConfig.nickname}的技術作品、藝術創作、競賽與學習紀錄。`}>
-  <section class="page-masthead">
+  <section class="page-masthead page-masthead--achievements">
     <div class="page-masthead__inner shell"><div><h1 class="page-title">成果</h1><p class="page-masthead__intro">這裡整理我的技術作品、藝術創作、競賽與其他學習紀錄。</p></div><EditorialVisual variant="achievements" /></div>
   </section>
   <section class="archive shell">

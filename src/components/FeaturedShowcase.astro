@@ -1,0 +1,155 @@
+---
+import { withBase } from '../utils/paths';
+
+interface ShowcaseItem {
+  href: string;
+  title: string;
+  description: string;
+  category: 'technical' | 'artistic';
+  categoryLabel: string;
+  typeLabel: string;
+  cover?: string;
+  coverAlt?: string;
+}
+
+interface Props { items: ShowcaseItem[] }
+const { items } = Astro.props;
+---
+
+{items.length > 0 && (
+  <aside class="showcase" data-showcase aria-label="精選成果輪播">
+    <p class="showcase-kicker">SELECTED WORK / 精選成果</p>
+    <div class="showcase-stage">
+      {items.map((item, index) => (
+        <article class="showcase-slide" data-slide data-active={index === 0 ? 'true' : 'false'} aria-hidden={index === 0 ? 'false' : 'true'}>
+          <a href={withBase(item.href)} tabindex={index === 0 ? 0 : -1}>
+            <div class="showcase-media">
+              {item.cover ? (
+                <img src={withBase(item.cover)} alt={item.coverAlt ?? ''} width="640" height="440" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              ) : (
+                <div class="default-cover" data-category={item.category} aria-hidden="true">
+                  <span class="cover-code">{item.category === 'technical' ? 'SIG' : 'ART'}—0{index + 1}</span>
+                  <span class="cover-orbit"></span>
+                  <span class="cover-line line-a"></span>
+                  <span class="cover-line line-b"></span>
+                  <span class="cover-pixel pixel-a"></span>
+                  <span class="cover-pixel pixel-b"></span>
+                  <strong>{item.category === 'technical' ? 'TECH' : 'STUDIO'}</strong>
+                </div>
+              )}
+            </div>
+            <div class="showcase-copy">
+              <p><span>{item.categoryLabel}</span> / {item.typeLabel}</p>
+              <h2>{item.title}</h2>
+              <span class="showcase-description">{item.description}</span>
+              <span class="showcase-link">查看成果 ↗</span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+    <div class="showcase-controls">
+      <button type="button" data-previous aria-label="上一件成果">←</button>
+      <span aria-live="polite"><b data-current>01</b> / {String(items.length).padStart(2, '0')}</span>
+      <button type="button" data-next aria-label="下一件成果">→</button>
+      <button class="showcase-toggle" type="button" data-toggle aria-label="暫停自動輪播">暫停</button>
+    </div>
+  </aside>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-showcase]').forEach((showcase) => {
+    const slides = [...showcase.querySelectorAll<HTMLElement>('[data-slide]')];
+    const current = showcase.querySelector<HTMLElement>('[data-current]');
+    const toggle = showcase.querySelector<HTMLButtonElement>('[data-toggle]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = 0;
+    let timer: number | undefined;
+    let manuallyPaused = false;
+
+    const show = (next: number) => {
+      active = (next + slides.length) % slides.length;
+      slides.forEach((slide, index) => {
+        const isActive = index === active;
+        slide.dataset.active = String(isActive);
+        slide.setAttribute('aria-hidden', String(!isActive));
+        slide.querySelector('a')?.setAttribute('tabindex', isActive ? '0' : '-1');
+      });
+      if (current) current.textContent = String(active + 1).padStart(2, '0');
+    };
+
+    const stop = () => { if (timer) window.clearInterval(timer); timer = undefined; };
+    const start = () => {
+      stop();
+      if (!manuallyPaused && !reducedMotion.matches && slides.length > 1) timer = window.setInterval(() => show(active + 1), 4800);
+    };
+
+    showcase.querySelector('[data-previous]')?.addEventListener('click', () => { show(active - 1); start(); });
+    showcase.querySelector('[data-next]')?.addEventListener('click', () => { show(active + 1); start(); });
+    toggle?.addEventListener('click', () => {
+      manuallyPaused = !manuallyPaused;
+      toggle.textContent = manuallyPaused ? '播放' : '暫停';
+      toggle.setAttribute('aria-label', manuallyPaused ? '繼續自動輪播' : '暫停自動輪播');
+      manuallyPaused ? stop() : start();
+    });
+    showcase.addEventListener('mouseenter', stop);
+    showcase.addEventListener('mouseleave', start);
+    showcase.addEventListener('focusin', stop);
+    showcase.addEventListener('focusout', () => window.setTimeout(() => { if (!showcase.contains(document.activeElement)) start(); }, 0));
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    reducedMotion.addEventListener('change', start);
+    start();
+  });
+</script>
+
+<style>
+  .showcase { position: absolute; z-index: 3; right: max(24px, calc((100vw - 1480px) / 2)); top: 50%; width: min(49vw, 700px); transform: translateY(-46%); color: var(--ink); }
+  .showcase-kicker { margin: 0 0 10px; font: 700 .72rem/1.2 var(--font-display); letter-spacing: .18em; }
+  .showcase-stage { position: relative; height: clamp(300px, 30vw, 420px); }
+  .showcase-slide { position: absolute; inset: 0; visibility: hidden; opacity: 0; transform: translateX(24px); transition: opacity .5s ease, transform .65s cubic-bezier(.16,1,.3,1), visibility .5s; }
+  .showcase-slide[data-active='true'] { visibility: visible; opacity: 1; transform: none; }
+  .showcase-slide > a { height: 100%; display: grid; grid-template-columns: 55% 45%; color: inherit; border: 1px solid rgb(23 24 29 / .22); background: rgb(252 251 248 / .92); box-shadow: 0 26px 65px rgb(23 24 29 / .18); text-decoration: none; }
+  .showcase-media { min-width: 0; overflow: hidden; background: var(--ink); }
+  .showcase-media img, .default-cover { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .showcase-copy { display: flex; flex-direction: column; padding: clamp(24px, 3vw, 42px); }
+  .showcase-copy p { margin: 0 0 20px; color: var(--muted); font-size: .78rem; letter-spacing: .08em; }
+  .showcase-copy p span { color: var(--category); font-weight: 800; }
+  .showcase-slide:has([data-category='technical']) { --category: var(--cobalt-dark); }
+  .showcase-slide:has([data-category='artistic']) { --category: var(--rust-dark); }
+  .showcase-copy h2 { margin: 0; font: 700 clamp(1.55rem, 2.6vw, 2.6rem)/1.15 var(--font-editorial); letter-spacing: -.035em; }
+  .showcase-description { margin-top: 16px; color: var(--ink-soft); font-size: clamp(.86rem, 1vw, 1rem); line-height: 1.65; }
+  .showcase-link { margin-top: auto; padding-top: 18px; color: var(--category); font-size: .88rem; font-weight: 800; }
+  .showcase-controls { height: 42px; display: flex; align-items: center; gap: 4px; margin-top: 10px; }
+  .showcase-controls button { width: 42px; height: 42px; border: 1px solid var(--ink); color: var(--ink); background: rgb(252 251 248 / .9); cursor: pointer; font: 700 .85rem var(--font-display); }
+  .showcase-controls button:hover { color: var(--chalk); background: var(--ink); }
+  .showcase-controls > span { min-width: 82px; text-align: center; font: 600 .75rem var(--font-display); letter-spacing: .08em; }
+  .showcase-controls .showcase-toggle { width: auto; margin-left: 6px; padding-inline: 14px; }
+  .default-cover { position: relative; overflow: hidden; background: #ecebe6; }
+  .default-cover::before { position: absolute; inset: 0; content: ''; opacity: .42; background: repeating-linear-gradient(90deg, transparent 0 39px, currentColor 40px), repeating-linear-gradient(0deg, transparent 0 39px, currentColor 40px); }
+  .default-cover[data-category='technical'] { color: var(--cobalt); background: linear-gradient(145deg, #f6f4ee 0 42%, #d9e0ff 100%); }
+  .default-cover[data-category='artistic'] { color: var(--rust); background: linear-gradient(145deg, #f7f3eb 0 40%, #efd3c7 100%); }
+  .cover-code { position: absolute; z-index: 2; left: 20px; top: 18px; font: 800 .72rem var(--font-display); letter-spacing: .16em; }
+  .cover-orbit { position: absolute; z-index: 1; left: 11%; top: 27%; width: 78%; aspect-ratio: 1.65; border: 3px solid currentColor; border-radius: 50%; transform: rotate(-14deg); }
+  .cover-line { position: absolute; z-index: 2; left: -12%; width: 120%; height: 3px; background: currentColor; transform-origin: center; }
+  .line-a { top: 53%; transform: rotate(17deg); }
+  .line-b { top: 61%; transform: rotate(-9deg); background: var(--ink); }
+  .cover-pixel { position: absolute; z-index: 3; width: 36px; aspect-ratio: 1; background: currentColor; }
+  .pixel-a { right: 12%; top: 17%; }
+  .pixel-b { left: 16%; bottom: 14%; width: 18px; background: var(--ink); }
+  .default-cover strong { position: absolute; z-index: 3; right: 16px; bottom: 12px; color: var(--ink); font: 900 clamp(1.5rem, 3vw, 3.3rem)/1 var(--font-display); letter-spacing: -.07em; }
+  @media (max-width: 980px) { .showcase { width: min(51vw, 560px); right: 20px; } }
+  @media (max-width: 700px) {
+    .showcase { top: auto; right: 18px; bottom: 22px; left: 18px; width: auto; transform: none; }
+    .showcase-kicker { margin-bottom: 8px; }
+    .showcase-stage { height: 248px; }
+    .showcase-slide > a { grid-template-columns: 47% 53%; }
+    .showcase-copy { padding: 20px 18px; }
+    .showcase-copy p { margin-bottom: 12px; font-size: .68rem; }
+    .showcase-copy h2 { font-size: 1.25rem; }
+    .showcase-description { display: -webkit-box; overflow: hidden; font-size: .78rem; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+    .showcase-controls { justify-content: flex-end; }
+    .showcase-controls .showcase-toggle { display: none; }
+    .default-cover::before { background-size: 28px 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .showcase-slide { transition: opacity .01ms; transform: none; } }
+</style>

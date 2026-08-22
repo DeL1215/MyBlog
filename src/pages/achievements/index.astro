@@ -30,7 +30,13 @@ const achievements = (await getCollection('achievements', ({ data }) => !data.dr
             <p>{item.data.description}</p>
             {item.data.technologies.length > 0 && <ul>{item.data.technologies.map((technology) => <li>{technology}</li>)}</ul>}
           </div>
-          {item.data.cover ? <a class="cover" href={withBase(`/achievements/${item.id}/`)}><img src={withBase(item.data.cover)} alt={item.data.coverAlt ?? ''} /></a> : <div class="blank" aria-label="此成果尚未加入封面圖片"><span>尚無封面</span></div>}
+          {item.data.cover ? <a class="cover" href={withBase(`/achievements/${item.id}/`)}><img src={withBase(item.data.cover)} alt={item.data.coverAlt ?? ''} /></a> : (
+            <a class="blank" href={withBase(`/achievements/${item.id}/`)} aria-label={`查看成果：${item.data.title}`}>
+              <span class="blank-code">{item.data.category === 'technical' ? 'SIG' : 'ART'} / {item.data.year}</span>
+              <i class="blank-line"></i><i class="blank-pixel"></i>
+              <strong>{item.data.category === 'technical' ? 'TECH' : 'STUDIO'}</strong>
+            </a>
+          )}
           <a class="open" href={withBase(`/achievements/${item.id}/`)} aria-label={`查看成果：${item.data.title}`}><ArrowIcon /></a>
         </article>
       ))}
@@ -115,10 +121,13 @@ const achievements = (await getCollection('achievements', ({ data }) => !data.dr
   ul { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; margin: 18px 0 0; padding: 0; color: var(--muted); font: 600 .78rem var(--font-ui); }
   .cover, .blank { min-height: 160px; }
   .cover img { width: 100%; height: 100%; border: 1px solid var(--rule); object-fit: cover; }
-  .blank { position: relative; display: grid; place-items: center; overflow: hidden; color: var(--chalk); background: var(--ink); font: 600 .76rem var(--font-ui); letter-spacing: .03em; }
+  .blank { position: relative; display: block; overflow: hidden; color: var(--category-color); border: 1px solid var(--rule); background: linear-gradient(145deg, #f7f5ef 0 45%, color-mix(in srgb, var(--category-color) 15%, #f7f5ef) 100%); text-decoration: none; }
+  .blank-code { position: absolute; z-index: 3; left: 14px; top: 12px; color: var(--ink); font: 800 .68rem var(--font-ui); letter-spacing: .12em; }
+  .blank strong { position: absolute; z-index: 3; right: 13px; bottom: 10px; color: var(--ink); font: 900 clamp(1.35rem, 2.4vw, 2.5rem)/1 var(--font-display); letter-spacing: -.07em; }
+  .blank-line { position: absolute; z-index: 2; left: -8%; top: 62%; width: 116%; height: 2px; background: var(--ink); transform: rotate(10deg); }
+  .blank-pixel { position: absolute; z-index: 3; right: 15%; top: 18%; width: 26px; aspect-ratio: 1; background: var(--category-color); }
   .blank::before { position: absolute; inset: 15% -8% auto 28%; height: 42%; content: ''; border: 2px solid var(--category-color); border-radius: 50%; transform: rotate(-12deg); }
   .blank::after { position: absolute; right: -6%; bottom: -18%; width: 58%; aspect-ratio: 1; content: ''; background: var(--category-color); clip-path: polygon(0 35%, 35% 35%, 35% 0, 70% 0, 70% 42%, 100% 42%, 100% 100%, 22% 100%, 22% 72%, 0 72%); }
-  .blank span { position: relative; z-index: 2; }
   .open { align-self: center; color: var(--rust-dark); text-decoration: none; transition: transform var(--motion); }
   .open:hover { transform: translate(3px, -3px); }
   .empty, .no-results { margin: 0; padding: 32px 0; border-bottom: 1px solid var(--rule); color: var(--muted); }

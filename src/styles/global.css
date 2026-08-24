@@ -62,12 +62,16 @@ a { text-underline-offset: .2em; }
 .page-masthead__inner { min-height: 460px; display: grid; grid-template-columns: minmax(280px, .72fr) minmax(420px, 1fr); gap: clamp(40px, 7vw, 110px); align-items: center; padding-block: 68px; }
 .page-masthead .page-title { max-width: 10ch; color: var(--chalk); }
 .page-masthead__intro { max-width: 620px; margin: 24px 0 0; color: rgb(242 239 230 / .78); font-size: clamp(1.05rem, 1.4vw, 1.25rem); line-height: 1.8; }
-.page-masthead--about { background: #111217 url('../assets/images/masthead-about-collage-v1.png') center / cover no-repeat; }
-.page-masthead--achievements { background: #111217 url('../assets/images/masthead-achievements-collage-v1.png') center / cover no-repeat; }
-.page-masthead--blog { background: #111217 url('../assets/images/masthead-blog-collage-v1.png') center / cover no-repeat; }
-.page-masthead--about::after, .page-masthead--achievements::after, .page-masthead--blog::after { display: none; }
+.page-masthead--about, .page-masthead--achievements, .page-masthead--blog { color: var(--ink); }
+.page-masthead--about { background: #fcfbf8 url('../assets/images/strelitzia-reginae-public-domain.jpg') 88% center / min(54vw, 780px) auto no-repeat; }
+.page-masthead--achievements { background: #fcfbf8 url('../assets/images/proun-no-83.jpg') 88% center / min(52vw, 740px) auto no-repeat; }
+.page-masthead--blog { background: linear-gradient(118deg, #fcfbf8 0 54%, #e7ecff 100%); }
+.page-masthead--about::after, .page-masthead--achievements::after { display: none; }
+.page-masthead--blog::after { width: min(28vw, 380px); left: auto; right: 7%; top: 18%; background: var(--cobalt); opacity: .16; transform: rotate(-12deg); }
 .page-masthead--about .page-masthead__inner, .page-masthead--achievements .page-masthead__inner, .page-masthead--blog .page-masthead__inner { grid-template-columns: 1fr; }
 .page-masthead--about .editorial-visual, .page-masthead--achievements .editorial-visual, .page-masthead--blog .editorial-visual { display: none; }
+.page-masthead--about .page-title, .page-masthead--achievements .page-title, .page-masthead--blog .page-title { color: var(--ink); }
+.page-masthead--about .page-masthead__intro, .page-masthead--achievements .page-masthead__intro, .page-masthead--blog .page-masthead__intro { color: var(--ink-soft); }
 
 a:focus-visible, button:focus-visible { outline: 3px solid var(--rust); outline-offset: 4px; }
 .page-masthead a:focus-visible, .content-header a:focus-visible, .site-footer a:focus-visible { outline-color: var(--chalk); }
